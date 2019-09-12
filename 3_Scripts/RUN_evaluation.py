@@ -42,6 +42,8 @@ import RUN_entity_graph as eg
 import multiprocessing
 import multiprocessing.pool
 
+activate_multiprocessing = True
+
 GLOBALLOCK = multiprocessing.Lock()
 
 # Load (text, author): texttype information for Literature texts
@@ -315,12 +317,14 @@ def full_evaluation(verbose=False, directory=None, min_10_sents=False, min_5_ent
     # get starting time
     start_time = time.time()
 
-    # print number of CPU
-    print(multiprocessing.cpu_count(), 'cpu count')
-        
-    # prepare multiprocessing pool
-    my_pool = multiprocessing.Pool(processes=5)
-    
+    if activate_multiprocessing:
+
+        # print number of CPU
+        print(multiprocessing.cpu_count(), 'cpu count')
+
+        # prepare multiprocessing pool
+        my_pool = multiprocessing.Pool(processes=5)
+
     # list of all files
     files = os.listdir("./"+directory) if not directory.startswith('/home') else os.listdir(directory)
 
@@ -368,19 +372,25 @@ def full_evaluation(verbose=False, directory=None, min_10_sents=False, min_5_ent
     # If max n of docs is set, only use first n docs
     if max_n_docs != None:
         files = files[:max_n_docs]  
-        
-    # create argument tuples
-    arguments = [(f, filter_on, filtered_corpus, directory, verbose, baseline) for f in enumerate(files)]
-           
-    # start multiprocess and save results
-    results = my_pool.map(single_file_evaluation, arguments)
-         
-#    # Iterate instead of multiprocess: useful for debugging
-#    for i,f in enumerate(files):
-#       
-#       args = ((i,f), filter_on, filtered_corpus, directory, verbose, baseline)
-#       single_file_evaluation(args)
-        
+
+    if activate_multiprocessing:
+
+        # create argument tuples
+        arguments = [(f, filter_on, filtered_corpus, directory, verbose, baseline) for f in enumerate(files)]
+
+        # start multiprocess and save results
+        results = my_pool.map(single_file_evaluation, arguments)
+
+    else:
+        # Save results
+        results = []
+
+        # Iterate instead of multiprocess: useful for debugging
+        for i,f in enumerate(files):
+            args = ((i,f), filter_on, filtered_corpus, directory, verbose, baseline)
+            out = single_file_evaluation(args)
+            results.append(out)
+
     # get end time
     end_time = time.time()
     print('\n\n***\nRun time: %s minutes\n***' % str((end_time-start_time)/60),'\n')
