@@ -400,7 +400,7 @@ def main():
     """Main function used for testing and demonstration."""
         
     # Set directory: set of parsed texts
-    DIRECTORY = '/home/jsuter/Documents/03_HITS/Entity_Graph/GitHub/Entity_Graph_GitHub/entity-graph/datasets/GUTENBERG_parsed_texts/'
+    DIRECTORY = '../0_Datasets/GUTENBERG_parsed_texts/'
 
     # Get corpus features, such as part-of-speech bigrama snad character features
     mf_pos_bigrams, mf_char_bigrams, mf_char_trigrams = get_corpus_information(DIRECTORY)
