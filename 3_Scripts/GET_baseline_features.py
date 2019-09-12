@@ -98,6 +98,7 @@ feature_names = lex_f_names + char_f_names + synt_f_names
 
 # Feature names for reduced set
 if reduced_f_set:
+    feature_names = feature_names[:10] + feature_names[-21:]
     feature_names = lex_f_names + char_f_names + synt_f_names
     
 # Save feature names
