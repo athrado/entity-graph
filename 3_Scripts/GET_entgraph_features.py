@@ -593,8 +593,8 @@ for i, sample in enumerate(all_graphs):
     ent_graph = feature_dict['ent_graph_'].flatten()
 
 # Print # skipped files and samples
-print('Skipped files:\ŧ', len(skip_files))
-print('Samples:\t', sample_feature_array.shape)
+print('Skipped files:\t', len(skip_files))
+print('Samples:\t', sample_feature_array.shape[0])
 
 # Get solution array
 solution_array = np.array(author_list)
