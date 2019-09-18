@@ -48,8 +48,8 @@ warnings.filterwarnings('ignore', message="UndefinedMetricWarning.*")
 # ------------------------------------------------
 
 # Settings: select one from every list
-feature_set =  ['eg', 'baseline', 'combined'][0]
-class_type =  ['authors', 'genres'][1]
+feature_set =  ['eg', 'baseline', 'combined'][2]
+class_type =  ['authors', 'genres'][0]
 projection_type = ['pu','pw','pacc'][2]
 
 baseline_f_dir  = "../2_Features/baseline_features_reduced/"
