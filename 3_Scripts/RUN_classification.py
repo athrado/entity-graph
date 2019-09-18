@@ -426,11 +426,11 @@ print()
 # ------------------------------------------------
 
 # Load (text, author): texttype information
-with open('../1_Processed_texts/texttype_dict.pkl','rb') as infile:
+with open('./1_Info/misc/texttype_dict.pkl','rb') as infile:
     texttype_dict = pickle.load(infile, encoding='latin1')
     
 # Load (text, author): file length
-with open('../1_Processed_texts/file_length_dict.pkl','rb') as infile:
+with open('./1_Info/misc/file_length_dict.pkl','rb') as infile:
     file_length_dict = pickle.load(infile, encoding='latin1')
         
 # Set eg feature and solution arrays, and texttype solution
